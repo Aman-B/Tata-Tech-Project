@@ -64,6 +64,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    /*
+    Compose function for the app's layout.
+     */
     @Composable
     fun AppLayout() {
         var text by remember { mutableStateOf("") }

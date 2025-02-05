@@ -8,9 +8,14 @@ import com.example.tatatechproject.data.Content
 import com.example.tatatechproject.repository.ContentProviderRepository
 import kotlinx.coroutines.launch
 
+/*
+* Viewmodel that takes [ContentProviderRepository] as an argument.
+* */
 class ContentProviderViewModel (private val repository: ContentProviderRepository) : ViewModel(){
 
     private lateinit var content :Content
+
+    // vals for random string details.
 
     private val _randomString = MutableLiveData<String?>()
     val randomString: LiveData<String?> get() = _randomString
@@ -21,10 +26,10 @@ class ContentProviderViewModel (private val repository: ContentProviderRepositor
     private val _randomStringDate = MutableLiveData<String?>()
     val randomStringDate: LiveData<String?> get() = _randomStringDate
 
+    //list for all the random generated strings
     private val _randomStringList = MutableLiveData<ArrayList<String>>()
     val randomStringList: LiveData<ArrayList<String>> get() = _randomStringList
 
-    //declare a randomStringData --this will contain all the data returned by the json.
 
     // get json data by passing the string length given by user
     fun loadData(length: String) {
@@ -46,6 +51,7 @@ class ContentProviderViewModel (private val repository: ContentProviderRepositor
         }
     }
 
+    // deletes one string from the list at position zero.
     fun deleteOneString() {
         val updatedList = ArrayList(_randomStringList.value ?: emptyList())
         if(updatedList.isNotEmpty()) {
@@ -54,6 +60,7 @@ class ContentProviderViewModel (private val repository: ContentProviderRepositor
         }
     }
 
+    // deletes all random generated strings.
     fun deleteAllStrings() {
         val updatedList = ArrayList(_randomStringList.value ?: emptyList())
         if(updatedList.isNotEmpty()) {

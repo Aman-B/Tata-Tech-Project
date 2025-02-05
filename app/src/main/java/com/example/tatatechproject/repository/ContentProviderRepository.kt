@@ -45,7 +45,7 @@ class ContentProviderRepository(private val context: Context) {
                         result = getFormattedData(jsonObject)
                     }
                 }
-                result // Return the extracted text
+                result // Return the extracted object
             } catch (e: UnsupportedOperationException) {
                 Log.e("ContentProviderRepository", "UnsupportedOperationException")
                 Content() //return blank object
@@ -53,6 +53,7 @@ class ContentProviderRepository(private val context: Context) {
         }
     }
 
+    //creates [Content] object from the [jsonObject]
     private fun getFormattedData(jsonObject: JSONObject): Content? {
         return Content(
             value = jsonObject.getJSONObject("randomText").getString("value"),
@@ -61,6 +62,7 @@ class ContentProviderRepository(private val context: Context) {
         )
     }
 
+    // converts date string to readable date format
     private fun convertDate(dateString: String): String? {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
         val outputFormat = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault())
