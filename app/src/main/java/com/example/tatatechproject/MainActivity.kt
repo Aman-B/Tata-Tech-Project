@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
         var text by remember { mutableStateOf("") }
         val randomString by viewModel.randomString.observeAsState("") // Observing LiveData
         val randomStringLength by viewModel.randomStringLength.observeAsState("")
-        val randomStringDate by viewModel.randomStringLength.observeAsState("")
+        val randomStringDate by viewModel.randomStringDate.observeAsState("")
         val randomStringList by viewModel.randomStringList.observeAsState("")
         TextField(
             value = text,
