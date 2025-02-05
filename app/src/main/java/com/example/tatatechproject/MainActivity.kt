@@ -73,8 +73,12 @@ class MainActivity : ComponentActivity() {
         val randomStringList by viewModel.randomStringList.observeAsState("")
         TextField(
             value = text,
-            onValueChange = { text = it },
-            label = { Text("Label") }
+            onValueChange = { newText ->
+                if (newText.all { it.isDigit() }) { // Allow only numbers
+                    text = newText
+                }
+            },
+            label = { Text("Enter a string length") }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -107,7 +111,27 @@ class MainActivity : ComponentActivity() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        Button(
+            onClick = {
+                //request of length
+                viewModel.deleteOneString()
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Delete one string.")
+        }
 
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(
+            onClick = {
+                //request of length
+                viewModel.deleteAllStrings()
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Delete all strings.")
+        }
     }
 
 }

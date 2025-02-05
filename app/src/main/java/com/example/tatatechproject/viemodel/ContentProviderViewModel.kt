@@ -38,11 +38,27 @@ class ContentProviderViewModel (private val repository: ContentProviderRepositor
                 _randomStringDate.value = content.date
 
                 //add to random generated string list
-                val updatedList = ArrayList(_randomStringList.value ?: emptyList()) // Ensure it's mutable                _randomStringList.value = updatedList + _randomStringList
+                val updatedList = ArrayList(_randomStringList.value ?: emptyList())
                 updatedList.add(_randomString.value) // Add new string
                 _randomStringList.value = updatedList // Post updated list
 
             }
+        }
+    }
+
+    fun deleteOneString() {
+        val updatedList = ArrayList(_randomStringList.value ?: emptyList())
+        if(updatedList.isNotEmpty()) {
+            updatedList.removeAt(0)
+            _randomStringList.value = updatedList
+        }
+    }
+
+    fun deleteAllStrings() {
+        val updatedList = ArrayList(_randomStringList.value ?: emptyList())
+        if(updatedList.isNotEmpty()) {
+            updatedList.removeAt(0)
+            _randomStringList.value = arrayListOf()
         }
     }
 
