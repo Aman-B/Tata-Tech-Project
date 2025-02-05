@@ -19,12 +19,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.tatatechproject.repository.ContentProviderRepository
 import com.example.tatatechproject.ui.theme.TataTechProjectTheme
 import com.example.tatatechproject.viemodel.ContentProviderViewModel
@@ -38,7 +40,7 @@ class MainActivity : ComponentActivity() {
 
         // Get the ViewModel
         viewModel = ContentProviderViewModel(repository)
-        viewModel.randomText.observe(this) { text ->
+        viewModel.randomString.observe(this) { text ->
             Log.d("UI", "Fetched Text: $text")
         }
 
@@ -52,13 +54,12 @@ class MainActivity : ComponentActivity() {
                             .padding(innerPadding)
                             .fillMaxSize()
                             .padding(16.dp),
-                        verticalArrangement = Arrangement.Center,
+                        verticalArrangement = Arrangement.Top,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         AppLayout()
-
-                }
                     }
+                }
             }
         }
     }
@@ -66,7 +67,10 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun AppLayout() {
         var text by remember { mutableStateOf("") }
-
+        val randomString by viewModel.randomString.observeAsState("") // Observing LiveData
+        val randomStringLength by viewModel.randomStringLength.observeAsState("")
+        val randomStringDate by viewModel.randomStringLength.observeAsState("")
+        val randomStringList by viewModel.randomStringList.observeAsState("")
         TextField(
             value = text,
             onValueChange = { text = it },
@@ -84,6 +88,26 @@ class MainActivity : ComponentActivity() {
         ) {
             Text("Generate random string.")
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(text = "Generated String: $randomString", fontSize = 20.sp)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(text = "Generated String length: $randomStringLength", fontSize = 20.sp)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(text = "Generated String date: $randomStringDate", fontSize = 20.sp)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(text = "Generated String list: $randomStringList", fontSize = 20.sp)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+
     }
 
 }
